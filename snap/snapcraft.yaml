@@ -1,0 +1,40 @@
+name: andy-py-cli
+version: '0.1'
+summary: 'Simple python CLI test app'
+description: |
+  Simple python CLI test app
+  supporting my article on python snaps https://medium.com/p/ccca7ae537a3/edit
+
+grade: stable # devel # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+base: core18
+
+apps:
+    andy-py-cli:
+        command: python3 $SNAP/main.py
+        plugs: [home, gsettings, network]
+
+parts:
+  copy-stuff:
+    plugin: dump
+    source: .
+  andy-py-cli:
+    plugin: python
+    python-version: python3
+    source: .
+    stage-packages:
+        - libssl-dev
+        - libjpeg-dev
+        - libtiff-dev
+        - libsdl1.2-dev
+        - libnotify-dev
+        - freeglut3
+        - ibus-gtk3
+        - libwebkitgtk-3.0-0
+        - zlib1g
+        - libsm6
+        - libpulse0
+        - libslang2
+        - libsdl1.2debian
+    requirements:
+        - /root/project/requirements.txt
